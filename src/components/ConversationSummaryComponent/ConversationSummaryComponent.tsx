@@ -14,7 +14,7 @@ const ConversationSummaryComponent = ({ task }: any): JSX.Element | null => {
   const [conversationSid, setConversationSid] = useState(task.attributes.conversationSid);
 
   useEffect(() => {
-    if (!conversationSid || summaries[conversationSid] ) {
+    if (!conversationSid || summaries[conversationSid] || task.attributes.noAI ) {
       return;
     }
     console.log("fetching summary for conversationSid", conversationSid);
