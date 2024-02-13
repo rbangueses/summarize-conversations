@@ -1,5 +1,7 @@
 Twilio Flex Plugin - summarizes conversations using OpenAI
 
+![How does it look](https://github.com/rbangueses/summarize-conversations/blob/main/image.png?raw=true)
+
 2 components:
 - a Twilio Plugin
 - a serverless function
