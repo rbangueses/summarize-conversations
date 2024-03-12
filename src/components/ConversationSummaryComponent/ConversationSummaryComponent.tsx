@@ -17,8 +17,8 @@ const ConversationSummaryComponent = ({ task }: any): JSX.Element | null => {
     if (!conversationSid || summaries[conversationSid] || task.attributes.noAI ) {
       return;
     }
-    console.log("fetching summary for conversationSid", conversationSid);
-    axios.get(`https://demo-related-2466.twil.io/ai-summarize-chat?conversationSid=${conversationSid}`)
+    
+    axios.get(`${process.env.FLEX_APP_SUMMARIZE_FUNCTION_URL}?conversationSid=${conversationSid}`)
       .then(response => {
         const content = response.data.choices[0].message.content;
         const firstChar = content.charAt(0);
