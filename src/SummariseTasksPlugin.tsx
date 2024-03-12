@@ -18,7 +18,8 @@ export default class SummariseTasksPlugin extends FlexPlugin {
    */
   async init(flex: typeof Flex, manager: Flex.Manager): Promise<void> {
     const options: Flex.ContentFragmentProps = { sortOrder: -1 };
+    const token = manager.store.getState().flex.session.ssoTokenPayload.token;
     
-    flex.TaskCanvas.Content.add(<ConversationSummaryComponent key="conv-sum-component" />, options);
+    flex.TaskCanvas.Content.add(<ConversationSummaryComponent key="conv-sum-component" token={token} />, options);
   }
 }

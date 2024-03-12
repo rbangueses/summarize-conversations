@@ -9,7 +9,13 @@ interface Summary {
   sentiment: string;
 }
 
-const ConversationSummaryComponent = ({ task }: any): JSX.Element | null => {
+interface ConversationSummaryComponentProps {
+  task: any;
+  token: string;
+}
+
+
+const ConversationSummaryComponent: React.FC<ConversationSummaryComponentProps> = ({ task , token }): JSX.Element | null => {
   const [summaries, setSummaries] = useState<Record<string, Summary>>({});
   const [conversationSid, setConversationSid] = useState(task.attributes.conversationSid);
 
@@ -17,8 +23,13 @@ const ConversationSummaryComponent = ({ task }: any): JSX.Element | null => {
     if (!conversationSid || summaries[conversationSid] || task.attributes.noAI ) {
       return;
     }
-    
-    axios.get(`${process.env.FLEX_APP_SUMMARIZE_FUNCTION_URL}?conversationSid=${conversationSid}`)
+    const body = {
+      Token: token,
+      conversationSid: conversationSid
+    };
+
+    axios.post(`${process.env.FLEX_APP_SUMMARIZE_FUNCTION_URL}`, body)
+    //axios.get(`${process.env.FLEX_APP_SUMMARIZE_FUNCTION_URL}?conversationSid=${conversationSid}`)
       .then(response => {
         const content = response.data.choices[0].message.content;
         const firstChar = content.charAt(0);
